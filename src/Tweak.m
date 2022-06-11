@@ -51,49 +51,69 @@
 -(NSDictionary *)recieveCommand:(NSString *)name withUserInfo:(NSDictionary *)userInfo {
     NSMutableArray *args = [userInfo objectForKey:@"args"];
     int args_count = [args count];
+
     if ([args[0] isEqual:@"state"]) {
-	if ([(SBLockScreenManager *)[%c(SBLockScreenManager) sharedInstance] isUILocked]) return [NSDictionary dictionaryWithObject:@"locked" forKey:@"returnStatus"];
+        if ([(SBLockScreenManager *)[%c(SBLockScreenManager) sharedInstance] isUILocked])
+            return [NSDictionary dictionaryWithObject:@"locked" forKey:@"returnStatus"];
+
 	return [NSDictionary dictionaryWithObject:@"unlocked" forKey:@"returnStatus"];
+
     } else if ([args[0] isEqual:@"player"]) {
-    	if (args_count < 2) return [NSDictionary dictionaryWithObject:@"Usage: player [next|prev|pause|play|info]" forKey:@"returnStatus"];
+    	if (args_count < 2)
+	    return [NSDictionary dictionaryWithObject:@"Usage: player [next|prev|pause|play|info]" forKey:@"returnStatus"];
 	else {
     	    if ([args[1] isEqual:@"info"]) {
 	    	MPMediaItem *song = [[MPMusicPlayerController systemMusicPlayer] nowPlayingItem];
+
             	NSString *title = [song valueForProperty:MPMediaItemPropertyTitle];
             	NSString *album = [song valueForProperty:MPMediaItemPropertyAlbumTitle];
             	NSString *artist = [song valueForProperty:MPMediaItemPropertyArtist];
             	NSString *result = [NSString stringWithFormat:@"Title: %@\nAlbum: %@\nArtist: %@", title, album, artist];
+
 	    	return [NSDictionary dictionaryWithObject:result forKey:@"returnStatus"];
+
 	    } else if ([args[1] isEqual:@"play"]) {
 	    	MRMediaRemoteSendCommand(kMRPlay, nil);
+
 	    } else if ([args[1] isEqual:@"pause"]) {
 	    	MRMediaRemoteSendCommand(kMRPause, nil);
+
 	    } else if ([args[1] isEqual:@"next"]) {
 	    	MRMediaRemoteSendCommand(kMRNextTrack, nil);
+
 	    } else if ([args[1] isEqual:@"prev"]) {
 	    	MRMediaRemoteSendCommand(kMRPreviousTrack, nil);
+
 	    } else {
 	        return [NSDictionary dictionaryWithObject:@"Usage: player [next|prev|pause|play|info]" forKey:@"returnStatus"];
 	    }
 	}
+
     } else if ([args[0] isEqual:@"location"]) {
-    	if (args_count < 2) return [NSDictionary dictionaryWithObject:@"Usage: location [on|off|info]" forKey:@"returnStatus"];
+    	if (args_count < 2)
+	    return [NSDictionary dictionaryWithObject:@"Usage: location [on|off|info]" forKey:@"returnStatus"];
 	else {
     	    if ([args[1] isEqual:@"info"]) {
 	        CLLocationManager* manager = [[CLLocationManager alloc] init];
      		[manager startUpdatingLocation];
+
      		CLLocation *location = [manager location];
      		CLLocationCoordinate2D coordinate = [location coordinate];
-     		NSString *result = [NSString stringWithFormat:@"Latitude: %f\nLongitude: %f\nhttp://maps.google.com/maps?q=%f,%f", coordinate.latitude, coordinate.longitude, coordinate.latitude, coordinate.longitude];
+
+     		NSString *result = [NSString stringWithFormat:@"Latitude: %f\nLongitude: %f\nhttp://maps.google.com/maps?q=%f,%f",
+		                    coordinate.latitude, coordinate.longitude, coordinate.latitude, coordinate.longitude];
      		if ((int)(coordinate.latitude + coordinate.longitude) == 0) {
          	    result = @"error";
      		}
-     		[manager release];
+
 	    	return [NSDictionary dictionaryWithObject:result forKey:@"returnStatus"];
+
 	    } else if ([args[1] isEqual:@"on"]) {
 	    	[%c(CLLocationManager) setLocationServicesEnabled:true];
+
 	    } else if ([args[1] isEqual:@"off"]) {
 	    	[%c(CLLocationManager) setLocationServicesEnabled:false];
+
 	    } else {
 	    	return [NSDictionary dictionaryWithObject:@"Usage: location [on|off|info]" forKey:@"returnStatus"];
 	    }
@@ -107,7 +127,7 @@
     } else if ([args[0] isEqual:@"dhome"]) {
 	if ([[%c(SBUIController) sharedInstance] respondsToSelector:@selector(handleHomeButtonDoublePressDown)]) {
 	    [[%c(SBUIController) sharedInstance] handleHomeButtonDoublePressDown];
-        } else if ([(SBUIController *)[%c(SBUIController) sharedInstance] respondsToSelector:@selector(handleMenuDoubleTap)]) {
+        } else if ([[%c(SBUIController) sharedInstance] respondsToSelector:@selector(handleMenuDoubleTap)]) {
 	    [[%c(SBUIController) sharedInstance] handleMenuDoubleTap];
 	}
     } else if ([args[0] isEqual:@"getvol"]) {
@@ -168,6 +188,7 @@
             [task launch];
             NSData *data = [file readDataToEndOfFile];
             NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+
             return [NSDictionary dictionaryWithObject:result forKey:@"returnStatus"];
 	}
     }
