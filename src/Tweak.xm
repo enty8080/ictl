@@ -22,6 +22,8 @@
  * SOFTWARE.
  */
 
+#import <Foundation/Foundation.h>
+
 #import <AppSupport/CPDistributedMessagingCenter.h>
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
@@ -97,31 +99,16 @@
 	    }
 	}
     } else if ([args[0] isEqual:@"home"]) {
-	if ([(SBUIController *)[%c(SBUIController) sharedInstance] respondsToSelector:@selector(handleHomeButtonSinglePressUp)]) {
-	    [(SBUIController *)[%c(SBUIController) sharedInstance] handleHomeButtonSinglePressUp];
-	} else if ([(SBUIController *)[%c(SBUIController) sharedInstance] respondsToSelector:@selector(clickedMenuButton)]) {
-	    [(SBUIController *)[%c(SBUIController) sharedInstance] clickedMenuButton];
+	if ([[%c(SBUIController) sharedInstance] respondsToSelector:@selector(handleHomeButtonSinglePressUp)]) {
+	    [[%c(SBUIController) sharedInstance] handleHomeButtonSinglePressUp];
+	} else if ([[%c(SBUIController) sharedInstance] respondsToSelector:@selector(clickedMenuButton)]) {
+	    [[%c(SBUIController) sharedInstance] clickedMenuButton];
         }
     } else if ([args[0] isEqual:@"dhome"]) {
-	if ([(SBUIController *)[%c(SBUIController) sharedInstance] respondsToSelector:@selector(handleHomeButtonDoublePressDown)]) {
-	    [(SBUIController *)[%c(SBUIController) sharedInstance] handleHomeButtonDoublePressDown];
+	if ([[%c(SBUIController) sharedInstance] respondsToSelector:@selector(handleHomeButtonDoublePressDown)]) {
+	    [[%c(SBUIController) sharedInstance] handleHomeButtonDoublePressDown];
         } else if ([(SBUIController *)[%c(SBUIController) sharedInstance] respondsToSelector:@selector(handleMenuDoubleTap)]) {
-	    [(SBUIController *)[%c(SBUIController) sharedInstance] handleMenuDoubleTap];
-	}
-    } else if ([args[0] isEqual:@"alert"]) {
-        if (args_count < 5) return [NSDictionary dictionaryWithObject:@"Usage: alert <title> <message> <first_button> <second_button>" forKey:@"returnStatus"];
-	else {
-    	    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:args[1] message:args[2] delegate:nil cancelButtonTitle:args[3] otherButtonTitles:args[4], nil];
-	    [alert show];
-	    [alert release];
-	}
-    } else if ([args[0] isEqual:@"setvol"]) {
-        if (args_count < 2) return [NSDictionary dictionaryWithObject:@"Usage: setvol [0-100]" forKey:@"returnStatus"];
-	else {
-	    if ([args[1] integerValue] >= 0 && [args[1] integerValue] <= 100) {
-	    	float volumeLevel = [args[1] integerValue]/100;
-	    	[[MPMusicPlayerController systemMusicPlayer] setVolume:volumeLevel];
-	    } else return [NSDictionary dictionaryWithObject:@"Usage: setvol [0-100]" forKey:@"returnStatus"];
+	    [[%c(SBUIController) sharedInstance] handleMenuDoubleTap];
 	}
     } else if ([args[0] isEqual:@"getvol"]) {
     	[[AVAudioSession sharedInstance] setActive:YES error:nil];
@@ -132,7 +119,7 @@
 	else {
     	    AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:args[1]];
     	    utterance.rate = 0.4;
-    	    AVSpeechSynthesizer *syn = [[[AVSpeechSynthesizer alloc] init]autorelease];
+    	    AVSpeechSynthesizer *syn = [[AVSpeechSynthesizer alloc] init];
     	    [syn speakUtterance:utterance];
 	}
     } else if ([args[0] isEqual:@"battery"]) {
