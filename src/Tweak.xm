@@ -40,7 +40,7 @@
 
 -(void)applicationDidFinishLaunching:(id)application {
     %orig;
-    CPDistributedMessagingCenter *messagingCenter = [CPDistributedMessagingCenter centerNamed:@"com.pwny"];
+    CPDistributedMessagingCenter *messagingCenter = [CPDistributedMessagingCenter centerNamed:@"com.ictl"];
     [messagingCenter runServerOnCurrentThread];
     [messagingCenter registerForMessageName:@"recieveCommand" target:self selector:@selector(recieveCommand:withUserInfo:)];
 }
