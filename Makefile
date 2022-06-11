@@ -24,7 +24,7 @@
 
 include $(THEOS)/makefiles/common.mk
 
-export SYSROOT = $(THEOS)/sdks/iPhoneOS11.2.sdk
+export SYSROOT = $(THEOS)/sdks/iPhoneOS11.4.sdk
 
 TWEAK_NAME = ictl
 
