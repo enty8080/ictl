@@ -28,7 +28,7 @@ export SYSROOT = $(THEOS)/sdks/iPhoneOS11.4.sdk
 
 TWEAK_NAME = ictl
 
-ictl_FILES = Tweak.xm
+ictl_FILES = src/Tweak.xm
 ictl_CFLAGS = -fobjc-arc -Wno-unused -I./include
 ictl_PRIVATE_FRAMEWORKS = AppSupport UIKit MediaRemote MediaPlayer AVFoundation CoreLocation
 
