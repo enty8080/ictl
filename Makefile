@@ -25,7 +25,8 @@
 include $(THEOS)/makefiles/common.mk
 
 export TARGET = iphone:clang:14.4
-export TWEAK_NAME = ictl
+
+TWEAK_NAME = ictl
 
 ictl_FILES = src/Tweak.xm
 ictl_CFLAGS = -fobjc-arc -Wno-unused -Iinclude
