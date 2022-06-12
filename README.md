@@ -22,3 +22,7 @@ To implement `ictl` to Pwny follow these steps:
 
 * **1.** Build `ictl.dylib` with `make` command and put it to `pwny/data/`.
 * **2.** Move `ictl.py` to `pwny/plugins/`.
+
+## Facts
+
+* Based on fully-implemented [@enty8080's](https://github.com/enty8080) Apple iOS implant called [ac1d](https://web.archive.org/web/20201118064306/http://github.com/enty8080/ac1d).
