@@ -24,12 +24,11 @@
 
 include $(THEOS)/makefiles/common.mk
 
-export SYSROOT = $(THEOS)/sdks/iPhoneOS11.4.sdk
-
-TWEAK_NAME = ictl
+export TARGET = iphone:clang:14.4
+export TWEAK_NAME = ictl
 
 ictl_FILES = src/Tweak.xm
-ictl_CFLAGS = -fobjc-arc -Wno-unused -I./include
+ictl_CFLAGS = -fobjc-arc -Wno-unused -Iinclude
 ictl_PRIVATE_FRAMEWORKS = AppSupport UIKit MediaRemote MediaPlayer AVFoundation CoreLocation
 
 include $(THEOS)/makefiles/tweak.mk
