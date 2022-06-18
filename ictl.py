@@ -41,11 +41,11 @@ class HatSploitPlugin(Plugin):
                 return
 
         self.print_process("Installing ictl.dylib...")
-        if not self.session.upload(self.session.data + 'ictl.dylib', self.dylib):
+        if not self.session.upload(self.session.pwny + 'data/ictl.dylib', self.dylib):
             self.print_error("Failed to install ictl.dylib!")
             return
 
         self.print_process("Installing ictl.plist...")
-        if not self.session.upload(self.session.data + 'ictl.plist', self.plist):
+        if not self.session.upload(self.session.pwny + 'data/ictl.plist', self.plist):
             self.print_error("Failed to install ictl.plist!")
             return
