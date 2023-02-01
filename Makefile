@@ -45,15 +45,15 @@ setup:
 
 clean:
 	@ echo [Cleaning build]
-  @ rm -rf $(build)
-  @ echo [Done cleaning build]
+	@ rm -rf $(build)
+	@ echo [Done cleaning build]
 
 plugin:
 	@ echo [Compiling plugin]
-  @ $(cc) $(cflags) $(ldflags) $(plugin) -o $(build)/$(target)
-  @ echo [Done compiling plugin]
+	@ $(cc) $(cflags) $(ldflags) $(plugin) -o $(build)/$(target)
+	@ echo [Done compiling plugin]
 
 dylib:
 	@ echo [Compiling dylib]
-  @ cd $(source); make
-  @ echo [Done compiling dylib]
+	@ cd $(source); make
+	@ echo [Done compiling dylib]
