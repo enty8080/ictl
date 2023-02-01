@@ -48,7 +48,7 @@
 }
 
 %new
--(NSDictionary *)execPlugin:(NSString *)name withUserInfo:(NSMutableArray *)args {
+-(NSDictionary *)ictlCenter:(NSString *)name withArgs:(NSMutableArray *)args {
     int args_count = [args count];
 
     if ([args[0] isEqual:@"state"]) {
