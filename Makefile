@@ -33,7 +33,7 @@ cflags += -shared $(objc_flags) -arch arm64 -arch arm64e -isysroot $(sdk)
 ldflags = -L$(pwny) -lpwny -F $(sdk) -framework Foundation
 
 plugin = plugin.m
-target = plugin.so
+target = ictl.so
 
 source = src
 build = build
