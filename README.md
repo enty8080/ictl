@@ -21,7 +21,8 @@ Load `ictl` plugin to the Pwny to add commands and manipulate some user interfac
 To implement `ictl` to Pwny follow these steps:
 
 * **1.** Build `ictl.dylib` with `make` command and put it to `pwny/data/`.
-* **2.** Move `ictl.py` to `pwny/plugins/`.
+* **2.** Build `ictl.so` with `./compile.sh` command and put it to `pwny/data`.
+* **3.** Move `ictl.py` to `pwny/plugins/`.
 
 ## Facts
 
