@@ -20,9 +20,10 @@ Load `ictl` plugin to the Pwny to add commands and manipulate some user interfac
 
 To implement `ictl` to Pwny follow these steps:
 
-* **1.** Build `ictl.dylib` with `make` command and put it to `pwny/data/`.
-* **2.** Build `ictl.so` with `./compile.sh` command and put it to `pwny/data`.
-* **3.** Move `ictl.py` to `pwny/plugins/`.
+* **1.** Build `ictl.dylib` and `ictl.so` via `make all` and move them to `pwny/data/`
+* **2.** Move `ictl.py` to `pwny/plugins/`.
+
+**NOTE:** Pass `pwny` (Pwny SDK) and `sdk` (iPhone SDK) to `make all`, like this `make pwny=<sdk> sdk=<sdk>`.
 
 ## Facts
 
