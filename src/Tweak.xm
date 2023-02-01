@@ -42,14 +42,13 @@
 
 -(void)applicationDidFinishLaunching:(id)application {
     %orig;
-    CPDistributedMessagingCenter *messagingCenter = [CPDistributedMessagingCenter centerNamed:@"ictl"];
+    CPDistributedMessagingCenter *messagingCenter = [CPDistributedMessagingCenter centerNamed:@"com.ictl"];
     [messagingCenter runServerOnCurrentThread];
-    [messagingCenter registerForMessageName:@"execPlugin" target:self selector:@selector(execPlugin:withUserInfo:)];
+    [messagingCenter registerForMessageName:@"ictlCenter" target:self selector:@selector(ictlCenter:withArgs:)];
 }
 
 %new
--(NSDictionary *)execPlugin:(NSString *)name withUserInfo:(NSDictionary *)userInfo {
-    NSMutableArray *args = [userInfo objectForKey:@"args"];
+-(NSDictionary *)execPlugin:(NSString *)name withUserInfo:(NSMutableArray *)args {
     int args_count = [args count];
 
     if ([args[0] isEqual:@"state"]) {
