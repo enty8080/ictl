@@ -22,14 +22,38 @@
 # SOFTWARE.
 #
 
-include $(THEOS)/makefiles/common.mk
+ar = ar
+cc = clang
 
-export TARGET = iphone:clang:14.4
+objc_flags = -x objective-c -fobjc-arc
 
-TWEAK_NAME = ictl
+cflags = -std=c99 -fPIC -I$(pwny)/include -Wall -Wextra -Werror -pedantic-errors
+cflags += -shared $(objc_flags) -arch arm64 -arch arm64e -isysroot $(sdk)
 
-ictl_FILES = src/Tweak.xm
-ictl_CFLAGS = -fobjc-arc -Wno-unused -Iinclude
-ictl_PRIVATE_FRAMEWORKS = AppSupport UIKit MediaRemote MediaPlayer AVFoundation CoreLocation
+ldflags = -L$(pwny) -lpwny -F $(sdk) -framework Foundation
 
-include $(THEOS)/makefiles/tweak.mk
+plugin = plugin.m
+target = plugin.so
+
+source = src
+build = build
+
+.PHONY: all setup plugin dylib clean
+
+setup:
+	@ mkdir -p $(build)
+
+clean:
+	@ echo [Cleaning build]
+  @ rm -rf $(build)
+  @ echo [Done cleaning build]
+
+plugin:
+	@ echo [Compiling plugin]
+  @ $(cc) $(cflags) $(ldflags) $(plugin) -o $(build)/$(target)
+  @ echo [Done compiling plugin]
+
+dylib:
+	@ echo [Compiling dylib]
+  @ cd $(source); make
+  @ echo [Done compiling dylib]
