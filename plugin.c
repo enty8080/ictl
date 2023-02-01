@@ -29,9 +29,8 @@
 
 static NSString *ictl_talk_reply(NSMutableArray *args)
 {
-    CPDistributedMessagingCenter *ictlCenter = [CPDistributedMessagingCenter centerNamed:@"ictl"];
-    NSDictionary *message = [NSDictionary dictionaryWithObject:args forKey:@"args"];
-    NSDictionary *reply = [ictlCenter sendMessageAndReceiveReplyName:@"ictlCenter" message:message];
+    CPDistributedMessagingCenter *ictlCenter = [CPDistributedMessagingCenter centerNamed:@"com.ictl"];
+    NSDictionary *reply = [ictlCenter sendMessageAndReceiveReplyName:@"ictlCenter" args:args];
     return [reply objectForKey:@"returnStatus"];
 }
 
