@@ -22,6 +22,8 @@
  * SOFTWARE.
  */
 
+#define ICTL_SCOPE 1
+
 #import <Foundation/Foundation.h>
 
 #include "c2.h"
@@ -48,6 +50,6 @@ static c2_api_call_t *ictl_state(tlv_transport_pkt_t tlv_transport_packet)
 
 void register_ictl_api_calls(c2_api_calls_t **c2_api_calls_table)
 {
-    c2_register_api_call(c2_api_calls_table, 1, ictl_lock, 1);
-    c2_register_api_call(c2_api_calls_table, 2, ictl_state, 1);
+    c2_register_api_call(c2_api_calls_table, 1, ictl_lock, ICTL_SCOPE);
+    c2_register_api_call(c2_api_calls_table, 2, ictl_state, ICTL_SCOPE);
 }
