@@ -30,7 +30,7 @@ objc_flags = -x objective-c -fobjc-arc
 cflags = -std=c99 -fPIC -I$(pwny)/include -Wall -Wextra -Werror -pedantic-errors
 cflags += -shared $(objc_flags) -arch arm64 -arch arm64e -isysroot $(sdk)
 
-ldflags = -L$(pwny) -lpwny -F $(sdk) -framework Foundation
+ldflags = -L$(pwny) -lpwny -F $(sdk) -framework Foundation -framework UIKit
 
 plugin = plugin.m
 target = ictl.so
