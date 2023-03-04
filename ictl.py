@@ -7,27 +7,30 @@ from hatsploit.lib.plugin import Plugin
 
 
 class HatSploitPlugin(Plugin):
-    dylib = '/Library/MobileSubstrate/DynamicLibraries/ictl.dylib'
-    plist = '/Library/MobileSubstrate/DynamicLibraries/ictl.plist'
+    def __init__(self):
+        super().__init__()
 
-    details = {
-        'Name': "Pwny ictl Plugin",
-        'Plugin': "ictl",
-        'Authors': [
-            'Ivan Nikolsky (enty8080) - plugin developer',
-        ],
-        'Description': "Plugin called ictl for Apple iOS Pwny.",
-    }
+        self.dylib = '/Library/MobileSubstrate/DynamicLibraries/ictl.dylib'
+        self.plist = '/Library/MobileSubstrate/DynamicLibraries/ictl.plist'
 
-    commands = {
-        'ictl': {
-            'dial': {
-                'Description': "Make a phone number call.",
-                'Usage': "dial <number>",
-                'MinArgs': 1,
+        self.details = {
+            'Name': "Pwny ictl Plugin",
+            'Plugin': "ictl",
+            'Authors': [
+                'Ivan Nikolsky (enty8080) - plugin developer',
+            ],
+            'Description': "Plugin called ictl for Apple iOS Pwny.",
+        }
+
+        self.commands = {
+            'ictl': {
+                'dial': {
+                    'Description': "Make a phone number call.",
+                    'Usage': "dial <number>",
+                    'MinArgs': 1,
+                }
             }
         }
-    }
 
     def dial(self, argc, argv):
         self.print_process(f"Dialing {argv[1]}...")
