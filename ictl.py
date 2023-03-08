@@ -55,18 +55,14 @@ class HatSploitPlugin(Plugin):
         self.print_info(f"State: {state}")
 
     def load(self):
-        self.print_process("Checking ictl installation...")
+        self.print_process("Loading dylib... (1/2)")
 
-        if self.session.send_command(f'ls {self.dylib}', True) == self.dylib:
-            if self.session.send_command(f'ls {self.plist}', True) == self.plist:
-                return
+        if not self.session.upload(self.session.pwny_data + 'ictl.dylib', \
+                                   '/Library/MobileSubstrate/DynamicLibraries/ictl.dylib'):
+            self.print_error("Failed to upload dylib!")
 
-        self.print_process("Installing ictl.dylib...")
-        if not self.session.upload(self.session.pwny + 'data/ictl.dylib', self.dylib):
-            self.print_error("Failed to install ictl.dylib!")
-            return
+        self.print_process("Loading plist... (2/2)")
 
-        self.print_process("Installing ictl.plist...")
-        if not self.session.upload(self.session.pwny + 'data/ictl.plist', self.plist):
-            self.print_error("Failed to install ictl.plist!")
-            return
+        if not self.session.upload(self.session.pwny_data + 'ictl.plist', \
+                                   '/Library/MobileSubstrate/DynamicLibraries/ictl.plist'):
+            self.print_error("Failed to upload plist!")
