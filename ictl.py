@@ -10,6 +10,15 @@ class HatSploitPlugin(Plugin):
     def __init__(self):
         super().__init__()
 
+        self.backend = ['ictl.dylib', '/tmp/ictl.dylib']
+
+        self.scope = {
+            3: {
+                'lock': 1,
+                'state': 2,
+            }
+        }
+
         self.dylib = '/Library/MobileSubstrate/DynamicLibraries/ictl.dylib'
         self.plist = '/Library/MobileSubstrate/DynamicLibraries/ictl.plist'
 
@@ -24,17 +33,26 @@ class HatSploitPlugin(Plugin):
 
         self.commands = {
             'ictl': {
-                'dial': {
-                    'Description': "Make a phone number call.",
-                    'Usage': "dial <number>",
-                    'MinArgs': 1,
+                'lock': {
+                    'Description': "Lock device.",
+                    'Usage': "lock",
+                    'MinArgs': 0,
+                },
+                'state': {
+                    'Description': "Get device state.",
+                    'Usage': "state",
+                    'MinArgs': 0,
                 }
             }
         }
 
-    def dial(self, argc, argv):
-        self.print_process(f"Dialing {argv[1]}...")
-        self.session.send_command(f"dial {argv[1]}")
+    def lock(self, argc, argv):
+        self.print_process("Requesting iPhone lock...")
+        self.session.send_command('lock', scope=self.scope)
+
+    def state(self, argc, argv):
+        state = self.session.send_command('state', scope=self.scope)
+        self.print_info(f"State: {state}")
 
     def load(self):
         self.print_process("Checking ictl installation...")
