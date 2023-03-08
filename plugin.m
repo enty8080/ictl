@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-#define ICTL_SCOPE 1
+#define ICTL_SCOPE 1080
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
