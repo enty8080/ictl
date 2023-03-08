@@ -19,9 +19,6 @@ class HatSploitPlugin(Plugin):
             }
         }
 
-        self.dylib = '/Library/MobileSubstrate/DynamicLibraries/ictl.dylib'
-        self.plist = '/Library/MobileSubstrate/DynamicLibraries/ictl.plist'
-
         self.details = {
             'Name': "Pwny ictl Plugin",
             'Plugin': "ictl",
