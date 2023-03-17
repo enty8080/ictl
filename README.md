@@ -2,6 +2,9 @@
 
 Pwny plugin that allows to manipulate some user interface features available on Apple iOS.
 
+> **Warning**  
+> Mind the fact that `ictl` won't work on all Apple iOS systems, due to the facts that `ictl` exploits [MobileSubstrate (*Cydia Substrate*)](https://iphonedev.wiki/index.php/Cydia_Substrate) in order to access device features. [MobileSubstrate (*Cydia Substrate*)](https://iphonedev.wiki/index.php/Cydia_Substrate) is only available on jailbroken iPhones. So, do not try to use it on non-jailbroken iPhones.
+
 ## Features
 
 This plugin (`ictl`) can do this things:
