@@ -10,22 +10,21 @@ class HatSploitPlugin(Plugin):
     def __init__(self):
         super().__init__()
 
-        self.backend = ['ictl.dylib', '/tmp/ictl.dylib']
-
-        self.scope = {
-            3: {
-                'lock': 1,
-                'state': 2,
-            }
-        }
-
         self.details = {
             'Name': "Pwny ictl Plugin",
             'Plugin': "ictl",
             'Authors': [
                 'Ivan Nikolsky (enty8080) - plugin developer',
             ],
+            'Pool': 3,
             'Description': "Plugin called ictl for Apple iOS Pwny.",
+        }
+
+        self.pool = {
+            self.details['Pool']: {
+                'lock': 1,
+                'state': 2,
+            }
         }
 
         self.commands = {
@@ -45,10 +44,10 @@ class HatSploitPlugin(Plugin):
 
     def lock(self, argc, argv):
         self.print_process("Requesting iPhone lock...")
-        self.session.send_command('lock', scope=self.scope)
+        self.session.send_command('lock', pool=self.pool)
 
     def state(self, argc, argv):
-        state = self.session.send_command('state', scope=self.scope)
+        state = self.session.send_command('state', pool=self.pool)
         self.print_info(f"State: {state}")
 
     def load(self):
