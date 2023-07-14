@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2020-2022 EntySec
+ * Copyright (c) 2020-2023 EntySec
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -117,22 +117,26 @@
 	    	return [NSDictionary dictionaryWithObject:@"Usage: location [on|off|info]" forKey:@"returnStatus"];
 	    }
 	}
+
     } else if ([args[0] isEqual:@"home"]) {
 	if ([[%c(SBUIController) sharedInstance] respondsToSelector:@selector(handleHomeButtonSinglePressUp)]) {
 	    [[%c(SBUIController) sharedInstance] handleHomeButtonSinglePressUp];
 	} else if ([[%c(SBUIController) sharedInstance] respondsToSelector:@selector(clickedMenuButton)]) {
 	    [[%c(SBUIController) sharedInstance] clickedMenuButton];
         }
+
     } else if ([args[0] isEqual:@"dhome"]) {
 	if ([[%c(SBUIController) sharedInstance] respondsToSelector:@selector(handleHomeButtonDoublePressDown)]) {
 	    [[%c(SBUIController) sharedInstance] handleHomeButtonDoublePressDown];
         } else if ([[%c(SBUIController) sharedInstance] respondsToSelector:@selector(handleMenuDoubleTap)]) {
 	    [[%c(SBUIController) sharedInstance] handleMenuDoubleTap];
 	}
+
     } else if ([args[0] isEqual:@"getvol"]) {
     	[[AVAudioSession sharedInstance] setActive:YES error:nil];
     	NSString *volumeLevel = [NSString stringWithFormat:@"%.2f", [[AVAudioSession sharedInstance] outputVolume]];
 	return [NSDictionary dictionaryWithObject:volumeLevel forKey:@"returnStatus"];
+
     } else if ([args[0] isEqual:@"say"]) {
         if (args_count < 2) return [NSDictionary dictionaryWithObject:@"Usage: say <message>" forKey:@"returnStatus"];
 	else {
@@ -141,12 +145,14 @@
     	    AVSpeechSynthesizer *syn = [[AVSpeechSynthesizer alloc] init];
     	    [syn speakUtterance:utterance];
 	}
+
     } else if ([args[0] isEqual:@"battery"]) {
     	UIDevice *thisUIDevice = [UIDevice currentDevice];
 	[thisUIDevice setBatteryMonitoringEnabled:YES];
 	int batteryLevel = ([thisUIDevice batteryLevel] * 100);
 	NSString *result = [NSString stringWithFormat:@"%d", batteryLevel];
 	return [NSDictionary dictionaryWithObject:result forKey:@"returnStatus"];
+
     } else if ([args[0] isEqual:@"openurl"]) {
     	if (args_count < 2) return [NSDictionary dictionaryWithObject:@"Usage: openurl <url>" forKey:@"returnStatus"];
 	else {
@@ -154,6 +160,7 @@
 	    NSURL *URL = [NSURL URLWithString:args[1]];
 	    [application openURL:URL options:@{} completionHandler:nil];
 	}
+
     } else if ([args[0] isEqual:@"openapp"]) {
     	if (args_count < 2) return [NSDictionary dictionaryWithObject:@"Usage: openapp <application>" forKey:@"returnStatus"];
 	else {
@@ -162,6 +169,7 @@
 	    	return [NSDictionary dictionaryWithObject:@"error" forKey:@"returnStatus"];
 	    }
 	}
+
     } else if ([args[0] isEqual:@"dial"]) {
     	if (args_count < 2) return [NSDictionary dictionaryWithObject:@"Usage: dial <phone>" forKey:@"returnStatus"];
 	else {
@@ -170,10 +178,12 @@
 	    NSURL *phoneURL = [NSURL URLWithString:phoneNumber];
 	    [application openURL:phoneURL options:@{} completionHandler:nil];
 	}
+
     } else if ([args[0] isEqual:@"sysinfo"]) {
     	UIDevice *thisUIDevice = [UIDevice currentDevice];
     	NSString *result = [NSString stringWithFormat:@"%@ %@ %@ %@", [thisUIDevice model], [thisUIDevice systemName], [thisUIDevice systemVersion], [thisUIDevice name]];
 	return [NSDictionary dictionaryWithObject:result forKey:@"returnStatus"];
+
     } else if ([args[0] isEqual:@"shell"]) {
     	if (args_count < 2) return [NSDictionary dictionaryWithObject:@"Usage: shell <command>" forKey:@"returnStatus"];
 	else {
